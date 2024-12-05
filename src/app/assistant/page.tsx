@@ -4,7 +4,6 @@ import { AppSidebar } from "@/components/app-sidebar";
 import Assistant from "@/components/Assistant"
 import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 import { useToast } from "@/hooks/use-toast";
-import { Message } from "@/lib/types";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 
