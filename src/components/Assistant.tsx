@@ -1,14 +1,11 @@
 "use client"
 
 import React from 'react';
-import { Button } from './ui/button';
-import { ArrowUp, Copy, Trash2 } from 'lucide-react';
 import { AutosizeTextarea } from './ui/autosize-textarea';
 import { ScrollArea } from "@/components/ui/scroll-area"
-import { AssistantProps } from '@/lib/types';
-import { toast } from '@/hooks/use-toast';
-
-
+import SubmitButton from './SubmitButton';
+import CopyButton from './CopyButton';
+import DeleteButton from './DeleteButton';
 
 const Assistant: React.FC<AssistantProps> = ({
     onSubmit,
@@ -36,18 +33,6 @@ const Assistant: React.FC<AssistantProps> = ({
         }
     }
 
-    const copyToClipboard = async (text: string) => {
-        try {
-            await navigator.clipboard.writeText(text);
-            toast({
-                title: "Copied!",
-                description: "The response has been copied to the clipboard."
-            })
-        } catch (err) {
-            console.error("Failed to copy: ", err);
-        }
-    };
-
     return (
         <div className='flex w-screen h-screen'>
             <div>
@@ -67,9 +52,7 @@ const Assistant: React.FC<AssistantProps> = ({
                                 onKeyDown={handleKeyDown}
                                 className="w-full"
                             />
-                            <Button disabled={isLoading} size="icon" onClick={handleInitAndSubmit}>
-                                <ArrowUp />
-                            </Button>
+                            <SubmitButton isLoading={isLoading} onClick={handleInitAndSubmit}/>
                         </div>
                     </div>
                 </div>
@@ -86,24 +69,14 @@ const Assistant: React.FC<AssistantProps> = ({
                                     <div key={index} className='mb-5'>
                                         <p className='text-end mb-2'><strong>User:</strong> {r.user}</p>
                                         <p><strong>Bot:</strong> {r.bot}</p>
-                                        <Button 
-                                                size="icon" 
-                                                variant="ghost" 
-                                                onClick={() => copyToClipboard(r.bot)} 
-                                                className="ml-2"
-                                                aria-label="Copy bot response"
-                                            >
-                                                <Copy />
-                                        </Button>
+                                        <CopyButton text={r.bot}/>
                                     </div>
                                 ))
                             }
 
                             {isLoading && <p className='text-center'>Loading...</p>}
                         </ScrollArea>
-                        <Button className='mt-3 self-start bg-red-600 hover:bg-red-700' disabled={isLoading || responses.length === 0} size="icon" onClick={onDelete}>
-                            <Trash2/>
-                        </Button>
+                        <DeleteButton isLoading={isLoading} responsesLength={responses.length} onClick={onDelete}/>
                     </div>
                     <div className='flex w-full max-w-2xl items-center space-x-2 mx-auto'>
                         <AutosizeTextarea
@@ -114,9 +87,7 @@ const Assistant: React.FC<AssistantProps> = ({
                             onKeyDown={handleKeyDown}
                             className="w-full"
                         />
-                        <Button disabled={isLoading} size="icon" onClick={onSubmit}>
-                            <ArrowUp />
-                        </Button>
+                        <SubmitButton isLoading={isLoading} onClick={onSubmit}/>
                     </div>
                 </div>
             )}
