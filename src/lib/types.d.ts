@@ -1,9 +1,9 @@
-export interface Message {
+interface Message {
     user: string,
     bot: string
 }
 
-export interface AssistantProps {
+interface AssistantProps {
     onSubmit: () => void,
     onDelete: () => void,
     setInputValue: (value: string) => void,
@@ -15,6 +15,21 @@ export interface AssistantProps {
     children: React.ReactNode
 }
 
-export interface InputText {
+interface InputText {
     input_text: string
+}
+
+interface SubmitButtonProps {
+    onClick: () => void,
+    isLoading: boolean,
+}
+
+interface CopyButtonProps {
+    text: string,
+}
+
+interface DeleteButtonProps {
+    isLoading: boolean,
+    responsesLength: number,
+    onClick: () => void,
 }
