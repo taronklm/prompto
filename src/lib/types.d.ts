@@ -39,3 +39,11 @@ interface InserButtonProps {
     insertValue: string,
     disabled?: boolean,
 }
+
+interface InitialViewProps {
+    onSubmit: () => void,
+    setInputValue: (value: string) => void,
+    setInit: (bool: boolean) => void,
+    inputValue: string,
+    children: React.ReactNode,
+}
