@@ -7,11 +7,11 @@ interface AssistantProps {
     onSubmit: () => void,
     onDelete: () => void,
     setInputValue: (value: string) => void,
+    setInit: (bool: boolean) => void,
     inputValue: string,
     responses: Message[],
     isLoading: boolean,
     init: boolean,
-    setInit: (bool: boolean) => void,
     children: React.ReactNode
 }
 
@@ -21,7 +21,7 @@ interface InputText {
 
 interface SubmitButtonProps {
     onClick: () => void,
-    isLoading: boolean,
+    disabled?: boolean,
 }
 
 interface CopyButtonProps {
@@ -29,13 +29,13 @@ interface CopyButtonProps {
 }
 
 interface DeleteButtonProps {
-    isLoading: boolean,
-    responsesLength: number,
     onClick: () => void,
+    disabled?: boolean,
 }
 
 interface InserButtonProps {
+    onClick: (insertValue: string) => void,
     name: string,
     insertValue: string,
-    onClick: (insertValue: string) => void,
+    disabled?: boolean,
 }
