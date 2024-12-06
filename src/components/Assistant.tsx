@@ -7,6 +7,7 @@ import SubmitButton from './SubmitButton';
 import CopyButton from './CopyButton';
 import DeleteButton from './DeleteButton';
 import InsertButton from './InsertButton';
+import { Oval } from 'react-loader-spinner';
 
 const Assistant: React.FC<AssistantProps> = ({
     onSubmit,
@@ -87,7 +88,7 @@ const Assistant: React.FC<AssistantProps> = ({
                                     
                     <div className='flex items-start self-center w-full max-w-2xl space-x-2'>
                         <ScrollArea className='h-[75vh] w-full border rounded-md p-4 border-black'>
-                            <div ref={chatContainerRef}>
+                            <div className='flex flex-col' ref={chatContainerRef}>
                                 {
                                     responses.map((r, index) => (
                                         <div key={index} className='mb-5'>
@@ -97,7 +98,9 @@ const Assistant: React.FC<AssistantProps> = ({
                                         </div>
                                     ))
                                 }
-                                {isLoading && <p className='text-center'>Loading...</p>}
+                                <div className='self-center'>
+                                    {isLoading && <Oval height="40" width="40" color="black"/>}
+                                </div>
                             </div>
                         </ScrollArea>
                         <DeleteButton disabled={isLoading || responses.length === 0} onClick={() => {onDelete(); setInit(false)}}/>
