@@ -89,7 +89,7 @@ const Assistant: React.FC<AssistantProps> = ({
                                 {isLoading && <p className='text-center'>Loading...</p>}
                             </div>
                         </ScrollArea>
-                        <DeleteButton isLoading={isLoading} responsesLength={responses.length} onClick={onDelete}/>
+                        <DeleteButton isLoading={isLoading} responsesLength={responses.length} onClick={() => {onDelete(); setInit(false)}}/>
                     </div>
                     <div className='flex w-full max-w-2xl items-center space-x-2 mx-auto'>
                         <AutosizeTextarea
