@@ -5,10 +5,10 @@ import React from "react"
 
 const SubmitButton: React.FC<SubmitButtonProps> = ({
     onClick,
-    isLoading,
+    disabled,
 }) => {
     return(
-        <Button disabled={isLoading} size="icon" onClick={onClick}>
+        <Button disabled={disabled} size="icon" onClick={onClick}>
             <ArrowUp />
         </Button>
     )
