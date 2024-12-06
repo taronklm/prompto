@@ -6,6 +6,7 @@ import { ScrollArea } from "@/components/ui/scroll-area"
 import SubmitButton from './SubmitButton';
 import CopyButton from './CopyButton';
 import DeleteButton from './DeleteButton';
+import InsertButton from './InsertButton';
 
 const Assistant: React.FC<AssistantProps> = ({
     onSubmit,
@@ -41,6 +42,10 @@ const Assistant: React.FC<AssistantProps> = ({
         }
     }
 
+    const insertTemplate = (placeholder: string) => {
+        setInputValue(placeholder)
+    }
+
     useEffect(() => {
         scrollToBottom()
     }, [responses])
@@ -54,7 +59,13 @@ const Assistant: React.FC<AssistantProps> = ({
             {!init ? (
                 <div className='container mx-auto h-full flex flex-col justify-center space-y-6 p-6'>
                     <div className='text-center'>
-                        <p className='text-5xl mb-6 font-bold'>How can I help you?</p>
+                        <div>
+                            <p className='text-5xl mb-6 font-bold'>How can I help you?</p>
+                            <div className='flex justify-center space-x-4 my-2'>
+                                <InsertButton name='Optimization' insertValue='Optimize: ' onClick={insertTemplate}/>
+                                <InsertButton name='Creation' insertValue='Subject: , Context: ' onClick={insertTemplate}/>
+                            </div>
+                        </div>
                         <div className='flex w-full max-w-2xl items-center space-x-2 mx-auto'>
                             <AutosizeTextarea
                                 placeholder='Enter Prompt'
