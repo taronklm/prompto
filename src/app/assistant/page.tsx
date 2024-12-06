@@ -20,20 +20,19 @@ const AssistantPage: React.FC = () => {
 
     useEffect(() => {
         const savedResponses = localStorage.getItem('chatResponses');
-        if (savedResponses) {
-            console.log("LOAD CHAT FROM LOCAL STORAGE")
-            setTimeout(() => {
-                toast({
-                  title: "NOTICE!",
-                  description: "It's advised to delete the chat history before every usage.",
-                  variant: "hint",
-                  duration: 10000,
-                });
-              }, 200);
-            setResponses(JSON.parse(savedResponses));
-            setInit(true)
-        }
-    }, []);
+        if(!savedResponses || responses.length > 0) return;
+        console.log("LOAD CHAT FROM LOCAL STORAGE")
+        setTimeout(() => {
+            toast({
+                title: "NOTICE!",
+                description: "It's advised to delete the chat history before every usage.",
+                variant: "hint",
+                duration: 10000,
+            });
+            }, 200);
+        setResponses(JSON.parse(savedResponses));
+        setInit(true)
+    }, [responses.length]);
 
     useEffect(() => {
         if (responses.length > 0) {
@@ -58,7 +57,6 @@ const AssistantPage: React.FC = () => {
                 updatedResponses[updatedResponses.length - 1].bot = res.data;
                 return updatedResponses;
             });
-            setIsLoading(false)
         } catch(err) {
             console.error("API Error:", err);
             setResponses((prev) => {
@@ -66,6 +64,12 @@ const AssistantPage: React.FC = () => {
               updatedResponses[updatedResponses.length - 1].bot = "Error getting response";
               return updatedResponses;
             });
+            toast({
+                title: "Error",
+                description: "There was in issue with the request. Please try again.",
+                variant: "destructive"
+            })
+        } finally {
             setIsLoading(false)
         }
     };
