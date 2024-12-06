@@ -55,7 +55,7 @@ const AssistantPage: React.FC = () => {
 
             setResponses((prev) => {
                 const updatedResponses = [...prev];
-                updatedResponses[updatedResponses.length - 1].bot = res.data; // Ladeindikator ersetzen
+                updatedResponses[updatedResponses.length - 1].bot = res.data;
                 return updatedResponses;
             });
             setIsLoading(false)
@@ -63,7 +63,7 @@ const AssistantPage: React.FC = () => {
             console.error("API Error:", err);
             setResponses((prev) => {
               const updatedResponses = [...prev];
-              updatedResponses[updatedResponses.length - 1].bot = "Error getting response"; // Bei Fehler
+              updatedResponses[updatedResponses.length - 1].bot = "Error getting response";
               return updatedResponses;
             });
             setIsLoading(false)
