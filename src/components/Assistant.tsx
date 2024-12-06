@@ -13,33 +13,19 @@ const Assistant: React.FC<AssistantProps> = ({
     onSubmit,
     onDelete,
     setInputValue,
+    setInit,
     inputValue,
     responses,
     isLoading,
-    init,
-    setInit,
-    children
+    children,
 }) => {
 
     const chatContainerRef = useRef<HTMLDivElement>(null)
 
-    const handleInitAndSubmit = () => {
-        if(!init) {
-            setInit(true);
-        }
-        onSubmit();
-    }
-
     const handleKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
         if(e.key === 'Enter') {
             e.preventDefault();
-            handleInitAndSubmit();
-        }
-    }
-
-    const scrollToBottom = () => {
-        if(chatContainerRef.current) {
-            chatContainerRef.current.scrollIntoView({behavior: 'smooth', block:'end'});
+            onSubmit();
         }
     }
 
@@ -48,7 +34,9 @@ const Assistant: React.FC<AssistantProps> = ({
     }, [setInputValue])
 
     useEffect(() => {
-        scrollToBottom()
+        if(chatContainerRef.current) {
+            chatContainerRef.current.scrollIntoView({behavior: 'smooth', block:'end'});
+        }
     }, [responses])
 
     return (
@@ -56,31 +44,6 @@ const Assistant: React.FC<AssistantProps> = ({
             <div>
                 {children}
             </div>
-
-            {!init ? (
-                <div className='container mx-auto h-full flex flex-col justify-center space-y-6 p-6'>
-                    <div className='text-center'>
-                        <div>
-                            <p className='text-5xl mb-6 font-bold'>How can I help you?</p>
-                            <div className='flex justify-center space-x-4 my-2'>
-                                <InsertButton name='Optimization' insertValue='Optimize: ' onClick={insertTemplate} />
-                                <InsertButton name='Creation' insertValue='Subject: , Context: ' onClick={insertTemplate} />
-                            </div>
-                        </div>
-                        <div className='flex w-full max-w-2xl items-center space-x-2 mx-auto'>
-                            <AutosizeTextarea
-                                placeholder='Enter Prompt'
-                                disabled={isLoading}
-                                value={inputValue}
-                                onChange={(e) => setInputValue(e.target.value)}
-                                onKeyDown={handleKeyDown}
-                                className="w-full"
-                            />
-                            <SubmitButton disabled={isLoading} onClick={handleInitAndSubmit}/>
-                        </div>
-                    </div>
-                </div>
-            ) : (
                 <div className='container mx-auto p-6 space-y-2 flex flex-col'>
                     <div className='mb-2'>
                         <h1 className='text-6xl font-extrabold leading-none tracking-tight text-center'>Prompto</h1>
@@ -98,9 +61,12 @@ const Assistant: React.FC<AssistantProps> = ({
                                         </div>
                                     ))
                                 }
-                                <div className='self-center'>
-                                    {isLoading && <Oval height="40" width="40" color="black"/>}
-                                </div>
+                                {
+                                    isLoading &&
+                                        <div className="absolute inset-0 flex justify-center items-center bg-white/50">
+                                            <Oval height="40" width="40" color="black" />
+                                        </div>
+                                }
                             </div>
                         </ScrollArea>
                         <DeleteButton disabled={isLoading || responses.length === 0} onClick={() => {onDelete(); setInit(false)}}/>
@@ -123,7 +89,6 @@ const Assistant: React.FC<AssistantProps> = ({
                         </div>
                     </div>
                 </div>
-            )}
         </div>
     );
 }
