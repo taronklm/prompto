@@ -62,8 +62,8 @@ const Assistant: React.FC<AssistantProps> = ({
                         <div>
                             <p className='text-5xl mb-6 font-bold'>How can I help you?</p>
                             <div className='flex justify-center space-x-4 my-2'>
-                                <InsertButton name='Optimization' insertValue='Optimize: ' onClick={insertTemplate}/>
-                                <InsertButton name='Creation' insertValue='Subject: , Context: ' onClick={insertTemplate}/>
+                                <InsertButton name='Optimization' insertValue='Optimize: ' onClick={insertTemplate} />
+                                <InsertButton name='Creation' insertValue='Subject: , Context: ' onClick={insertTemplate} />
                             </div>
                         </div>
                         <div className='flex w-full max-w-2xl items-center space-x-2 mx-auto'>
@@ -75,7 +75,7 @@ const Assistant: React.FC<AssistantProps> = ({
                                 onKeyDown={handleKeyDown}
                                 className="w-full"
                             />
-                            <SubmitButton isLoading={isLoading} onClick={handleInitAndSubmit}/>
+                            <SubmitButton disabled={isLoading} onClick={handleInitAndSubmit}/>
                         </div>
                     </div>
                 </div>
@@ -100,12 +100,12 @@ const Assistant: React.FC<AssistantProps> = ({
                                 {isLoading && <p className='text-center'>Loading...</p>}
                             </div>
                         </ScrollArea>
-                        <DeleteButton isLoading={isLoading} responsesLength={responses.length} onClick={() => {onDelete(); setInit(false)}}/>
+                        <DeleteButton disabled={isLoading || responses.length === 0} onClick={() => {onDelete(); setInit(false)}}/>
                     </div>
                     <div className='space-y-2'>
                         <div className='flex justify-center space-x-4'>
-                            <InsertButton name='Optimize' insertValue='Optimize: ' onClick={insertTemplate}/>
-                            <InsertButton name='Creation' insertValue='Subject: , Context: ' onClick={insertTemplate}/>
+                            <InsertButton name='Optimize' insertValue='Optimize: ' onClick={insertTemplate} disabled={isLoading}/>
+                            <InsertButton name='Creation' insertValue='Subject: , Context: ' onClick={insertTemplate} disabled={isLoading}/>
                         </div>
                         <div className='flex w-full max-w-2xl items-center space-x-2 mx-auto'>
                             <AutosizeTextarea
@@ -116,7 +116,7 @@ const Assistant: React.FC<AssistantProps> = ({
                                 onKeyDown={handleKeyDown}
                                 className="w-full"
                             />
-                            <SubmitButton isLoading={isLoading} onClick={onSubmit}/>
+                            <SubmitButton disabled={isLoading} onClick={onSubmit}/>
                         </div>
                     </div>
                 </div>
