@@ -1,6 +1,6 @@
 "use client"
 
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import { AutosizeTextarea } from './ui/autosize-textarea';
 import { ScrollArea } from "@/components/ui/scroll-area"
 import SubmitButton from './SubmitButton';
@@ -19,6 +19,8 @@ const Assistant: React.FC<AssistantProps> = ({
     children
 }) => {
 
+    const chatContainerRef = useRef<HTMLDivElement>(null)
+
     const handleInitAndSubmit = () => {
         if(!init) {
             setInit(true);
@@ -33,6 +35,16 @@ const Assistant: React.FC<AssistantProps> = ({
         }
     }
 
+    const scrollToBottom = () => {
+        if(chatContainerRef.current) {
+            chatContainerRef.current.scrollIntoView({behavior: 'smooth', block:'end'});
+        }
+    }
+
+    useEffect(() => {
+        scrollToBottom()
+    }, [responses])
+
     return (
         <div className='flex w-screen h-screen'>
             <div>
@@ -42,7 +54,7 @@ const Assistant: React.FC<AssistantProps> = ({
             {!init ? (
                 <div className='container mx-auto h-full flex flex-col justify-center space-y-6 p-6'>
                     <div className='text-center'>
-                        <p className='text-5xl mb-6'><b>How can I help you?</b></p>
+                        <p className='text-5xl mb-6 font-bold'>How can I help you?</p>
                         <div className='flex w-full max-w-2xl items-center space-x-2 mx-auto'>
                             <AutosizeTextarea
                                 placeholder='Enter Prompt'
@@ -64,17 +76,18 @@ const Assistant: React.FC<AssistantProps> = ({
                                     
                     <div className='flex items-start self-center w-full max-w-2xl space-x-2'>
                         <ScrollArea className='h-[75vh] w-full border rounded-md p-4'>
-                            {
-                                responses.map((r, index) => (
-                                    <div key={index} className='mb-5'>
-                                        <p className='text-end mb-2'><strong>User:</strong> {r.user}</p>
-                                        <p><strong>Bot:</strong> {r.bot}</p>
-                                        <CopyButton text={r.bot}/>
-                                    </div>
-                                ))
-                            }
-
-                            {isLoading && <p className='text-center'>Loading...</p>}
+                            <div ref={chatContainerRef}>
+                                {
+                                    responses.map((r, index) => (
+                                        <div key={index} className='mb-5'>
+                                            <p className='text-end mb-2'>{r.user}</p>
+                                            <p><strong>Bot:</strong> {r.bot}</p>
+                                            <CopyButton text={r.bot}/>
+                                        </div>
+                                    ))
+                                }
+                                {isLoading && <p className='text-center'>Loading...</p>}
+                            </div>
                         </ScrollArea>
                         <DeleteButton isLoading={isLoading} responsesLength={responses.length} onClick={onDelete}/>
                     </div>
