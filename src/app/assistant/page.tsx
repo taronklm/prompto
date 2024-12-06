@@ -2,6 +2,7 @@
 
 import { AppSidebar } from "@/components/app-sidebar";
 import Assistant from "@/components/Assistant"
+import InitialView from "@/components/InitialView";
 import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 import { useToast } from "@/hooks/use-toast";
 import axios from "axios";
@@ -85,23 +86,39 @@ const AssistantPage: React.FC = () => {
         setIsOpen(!isOpen)
     }
 
-    return(
-        <SidebarProvider open={isOpen}>
-            <AppSidebar />
-            <Assistant 
+    if(!init) {
+        return(
+            <SidebarProvider open={isOpen}>
+                <React.Fragment>
+                    <AppSidebar />
+                    <InitialView 
+                        onSubmit={handleSubmit}
+                        setInputValue={setInputValue}
+                        inputValue={inputValue}
+                        setInit={setInit}
+                    >
+                        <SidebarTrigger onClick={toggleOpen}/>
+                    </InitialView>
+                </React.Fragment>
+            </SidebarProvider>
+        )
+    } else {
+        return(
+            <SidebarProvider open={isOpen}>
+                <Assistant 
                 onSubmit={handleSubmit} 
                 onDelete={handleDelete}
-                setInputValue={setInputValue} 
-                inputValue={inputValue} 
-                responses={responses} 
-                isLoading={isLoading} 
-                init={init} 
-                setInit={setInit}
-            >
-                <SidebarTrigger onClick={toggleOpen}/>
-            </Assistant>
-        </SidebarProvider>
-    )
+                    setInputValue={setInputValue} 
+                    inputValue={inputValue} 
+                    responses={responses} 
+                    isLoading={isLoading} 
+                    setInit={setInit}
+                >
+                    <SidebarTrigger onClick={toggleOpen}/>
+                </Assistant>
+            </SidebarProvider>
+        )
+    }
 }
 
 export default AssistantPage
