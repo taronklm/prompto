@@ -1,6 +1,6 @@
 "use client"
 
-import React, { useEffect, useRef } from 'react';
+import React, { useCallback, useEffect, useRef } from 'react';
 import { AutosizeTextarea } from './ui/autosize-textarea';
 import { ScrollArea } from "@/components/ui/scroll-area"
 import SubmitButton from './SubmitButton';
@@ -42,9 +42,9 @@ const Assistant: React.FC<AssistantProps> = ({
         }
     }
 
-    const insertTemplate = (placeholder: string) => {
+    const insertTemplate = useCallback((placeholder: string) => {
         setInputValue(placeholder)
-    }
+    }, [setInputValue])
 
     useEffect(() => {
         scrollToBottom()
