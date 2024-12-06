@@ -33,3 +33,9 @@ interface DeleteButtonProps {
     responsesLength: number,
     onClick: () => void,
 }
+
+interface InserButtonProps {
+    name: string,
+    insertValue: string,
+    onClick: (insertValue: string) => void,
+}
