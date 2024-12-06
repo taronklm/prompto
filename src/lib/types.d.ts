@@ -11,7 +11,6 @@ interface AssistantProps {
     inputValue: string,
     responses: Message[],
     isLoading: boolean,
-    init: boolean,
     children: React.ReactNode
 }
 
