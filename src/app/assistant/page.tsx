@@ -85,26 +85,24 @@ const AssistantPage: React.FC = () => {
     const toggleOpen = () => {
         setIsOpen(!isOpen)
     }
-
-    if(!init) {
-        return(
-            <SidebarProvider open={isOpen}>
-                <React.Fragment>
-                    <AppSidebar />
-                    <InitialView 
-                        onSubmit={handleSubmit}
-                        setInputValue={setInputValue}
-                        inputValue={inputValue}
-                        setInit={setInit}
-                    >
-                        <SidebarTrigger onClick={toggleOpen}/>
-                    </InitialView>
-                </React.Fragment>
-            </SidebarProvider>
-        )
-    } else {
-        return(
-            <SidebarProvider open={isOpen}>
+    
+    return(
+        <SidebarProvider open={isOpen}>
+        {
+            !init?
+            <React.Fragment>
+                <AppSidebar />
+                <InitialView 
+                    onSubmit={handleSubmit}
+                    setInputValue={setInputValue}
+                    inputValue={inputValue}
+                    setInit={setInit}
+                >
+                    <SidebarTrigger onClick={toggleOpen}/>
+                </InitialView>
+            </React.Fragment>
+            :
+            <React.Fragment>
                 <Assistant 
                 onSubmit={handleSubmit} 
                 onDelete={handleDelete}
@@ -116,9 +114,10 @@ const AssistantPage: React.FC = () => {
                 >
                     <SidebarTrigger onClick={toggleOpen}/>
                 </Assistant>
-            </SidebarProvider>
-        )
-    }
+            </React.Fragment>
+        }
+        </SidebarProvider>
+    )
 }
 
 export default AssistantPage
