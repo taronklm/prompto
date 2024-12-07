@@ -63,7 +63,7 @@ const Assistant: React.FC<AssistantProps> = ({
                                 }
                                 {
                                     isLoading &&
-                                        <div className="absolute inset-0 flex justify-center items-center bg-white/50">
+                                        <div className="absolute inset-0 flex justify-center items-end mb-6">
                                             <Oval height="40" width="40" color="black" />
                                         </div>
                                 }
