@@ -88,10 +88,10 @@ const AssistantPage: React.FC = () => {
     
     return(
         <SidebarProvider open={isOpen}>
+            <AppSidebar />
         {
             !init?
             <React.Fragment>
-                <AppSidebar />
                 <InitialView 
                     onSubmit={handleSubmit}
                     setInputValue={setInputValue}
