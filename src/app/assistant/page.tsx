@@ -89,9 +89,8 @@ const AssistantPage: React.FC = () => {
     return(
         <SidebarProvider open={isOpen}>
             <AppSidebar />
-        {
-            !init?
-            <React.Fragment>
+            {
+                !init?
                 <InitialView 
                     onSubmit={handleSubmit}
                     setInputValue={setInputValue}
@@ -100,12 +99,10 @@ const AssistantPage: React.FC = () => {
                 >
                     <SidebarTrigger onClick={toggleOpen}/>
                 </InitialView>
-            </React.Fragment>
-            :
-            <React.Fragment>
+                :
                 <Assistant 
-                onSubmit={handleSubmit} 
-                onDelete={handleDelete}
+                    onSubmit={handleSubmit} 
+                    onDelete={handleDelete}
                     setInputValue={setInputValue} 
                     inputValue={inputValue} 
                     responses={responses} 
@@ -114,8 +111,7 @@ const AssistantPage: React.FC = () => {
                 >
                     <SidebarTrigger onClick={toggleOpen}/>
                 </Assistant>
-            </React.Fragment>
-        }
+            }
         </SidebarProvider>
     )
 }
