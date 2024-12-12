@@ -1,13 +1,12 @@
 "use client"
 
-import React, { useCallback, useEffect, useRef } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { AutosizeTextarea } from './ui/autosize-textarea';
 import { ScrollArea } from "@/components/ui/scroll-area"
 import SubmitButton from './SubmitButton';
 import CopyButton from './CopyButton';
 import DeleteButton from './DeleteButton';
 import InsertButton from './InsertButton';
-import { Oval } from 'react-loader-spinner';
 
 const Assistant: React.FC<AssistantProps> = ({
     onSubmit,
@@ -29,9 +28,9 @@ const Assistant: React.FC<AssistantProps> = ({
         }
     }
 
-    const insertTemplate = useCallback((placeholder: string) => {
+    const insertTemplate = (placeholder: string) => {
         setInputValue(placeholder)
-    }, [setInputValue])
+    }
 
     useEffect(() => {
         if(chatContainerRef.current) {
@@ -64,7 +63,7 @@ const Assistant: React.FC<AssistantProps> = ({
                                 {
                                     isLoading &&
                                         <div className="absolute inset-0 flex justify-center items-end mb-6">
-                                            <Oval height="40" width="40" color="black" />
+                                            <svg className='animate-spin h-5 w-5 text-blue-500' viewBox='0 0 24 24' fill='currentColor' />
                                         </div>
                                 }
                             </div>
