@@ -1,4 +1,4 @@
-import { copyToClipboard } from "@/lib/handleCopy"
+import { copyToClipboard } from "@/lib/helpers"
 import React from "react"
 import { Button } from "./ui/button"
 import { Copy } from "lucide-react"

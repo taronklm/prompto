@@ -11,3 +11,7 @@ export const copyToClipboard = async (text: string) => {
         console.error("Failed to copy: ", err);
     }
 };
+
+export const insertTemplate = (insert: string, setInputValue: (value: string) => void) => {
+    setInputValue(insert)
+}
