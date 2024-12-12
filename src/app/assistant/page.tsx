@@ -18,7 +18,6 @@ const AssistantPage: React.FC = () => {
 
     const { toast } = useToast()
 
-
     useEffect(() => {
         const savedResponses = localStorage.getItem('chatResponses');
         if(!savedResponses || responses.length > 0) return;
@@ -104,10 +103,10 @@ const AssistantPage: React.FC = () => {
                     onSubmit={handleSubmit} 
                     onDelete={handleDelete}
                     setInputValue={setInputValue} 
+                    setInit={setInit}
                     inputValue={inputValue} 
                     responses={responses} 
                     isLoading={isLoading} 
-                    setInit={setInit}
                 >
                     <SidebarTrigger onClick={toggleOpen}/>
                 </Assistant>
