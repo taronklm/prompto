@@ -49,12 +49,13 @@ const AssistantPage: React.FC = () => {
         setIsLoading(true)
 
         try {
-            const res = await axios.post('/api/chat', { message: inputValue });
+            const res = await axios.post('http://localhost:8000/chatbot/', { input_text: inputValue });
+
             console.log("RESPONSE: ", res);
 
             setResponses((prev) => {
                 const updatedResponses = [...prev];
-                updatedResponses[updatedResponses.length - 1].bot = res.data;
+                updatedResponses[updatedResponses.length - 1].bot = res.data.generated_text;
                 return updatedResponses;
             });
         } catch(err) {
