@@ -17,7 +17,7 @@ export function AppSidebar() {
             <br /><br />
             For prompt optimization, your input should look like this:
             <br />
-            <b>Prompt: [your prompt] </b>
+            <b>Optimize: [your prompt] </b>
             <br /><br />
             And for creating prompts like this:
             <br />

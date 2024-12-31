@@ -97,7 +97,7 @@ const AssistantPage: React.FC = () => {
                     inputValue={inputValue}
                     setInit={setInit}
                 >
-                    <SidebarTrigger onClick={toggleOpen}/>
+                    <SidebarTrigger size="icon" onClick={toggleOpen} className="w-10 h-10"/>
                 </InitialView>
                 :
                 <Assistant 
@@ -109,7 +109,7 @@ const AssistantPage: React.FC = () => {
                     responses={responses} 
                     isLoading={isLoading} 
                 >
-                    <SidebarTrigger onClick={toggleOpen}/>
+                    <SidebarTrigger size="icon" onClick={toggleOpen} className="w-10 h-10"/>
                 </Assistant>
             }
         </SidebarProvider>
